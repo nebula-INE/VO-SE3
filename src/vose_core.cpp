@@ -215,6 +215,12 @@ public:
         std::shared_lock<std::shared_mutex> lock(mtx);
         return index.size();
     }
+
+    void clear() {
+        std::unique_lock<std::shared_mutex> lock(mtx);
+        lru_list.clear();
+        index.clear();
+    }
 };
 
 static CacheStore g_analysis_cache;

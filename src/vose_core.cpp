@@ -1669,6 +1669,25 @@ DLLEXPORT void set_vocal_timeline(const VoseFrame* frames, int frame_count) {
     }
 }
 
+// エンジンのバージョン番号を返す
+DLLEXPORT float get_engine_version(void)
+{
+    return 1.0f; // 実際のバージョン番号に置き換えてください
+}
+
+// 音声データベース／解析キャッシュをクリアする
+DLLEXPORT void clear_engine_cache(void)
+{
+    {
+        VoseUniqueLock lock(g_voice_db_mutex);
+        g_voice_db.clear();
+    }
+    {
+        std::lock_guard<std::mutex> lock(g_analysis_cache_mutex);
+        g_analysis_cache.clear();
+    }
+}
+
 } // extern "C"
 
 // ============================================================
